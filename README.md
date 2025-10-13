@@ -12,7 +12,7 @@ Este repositorio contiene únicamente la implementación del **University Servic
 * Administrar atributos académicos asociados (cortes, notas mínimas, etc.).  
 * Proveer información de universidades para estudiantes, docentes y coordinadores.  
 * Servir como fuente de datos para análisis globales y métricas académicas.  
-* Integrarse con otros microservicios (Auth, University, Teacher, Notification).  
+* Integrarse con otros microservicios (Auth, Student, Teacher, Notification).  
 
 Tecnologías principales:  
 
