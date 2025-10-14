@@ -1,11 +1,15 @@
 package com.universitymicroservice.service;
 
 import com.universitymicroservice.dto.request.UniversityRequestDTO;
+import com.universitymicroservice.dto.response.PaginatedResponse;
 import com.universitymicroservice.dto.response.UniversityResponseDTO;
 import com.universitymicroservice.entity.University;
 import com.universitymicroservice.repository.UniversityRepository;
 import com.universitymicroservice.service.impl.IUniversityService;
-import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import com.universitymicroservice.exception.UniversityNotFoundException;
@@ -65,5 +69,28 @@ public class UniversityService implements IUniversityService {
             throw new UniversityNotFoundException();
         }
         repository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PaginatedResponse<UniversityResponseDTO> getAllPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<University> universityPage = repository.findAll(pageable);
+
+        List<UniversityResponseDTO> universities = universityPage
+                .getContent()
+                .stream()
+                .map(universityMapper::toResponseDTO)
+                .toList();
+
+        return new PaginatedResponse<>(
+                universities,
+                universityPage.getNumber(),
+                universityPage.getTotalPages(),
+                universityPage.getTotalElements(),
+                universityPage.getSize(),
+                universityPage.hasNext(),
+                universityPage.hasPrevious()
+        );
     }
 }

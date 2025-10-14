@@ -1,6 +1,7 @@
 package com.universitymicroservice.controller;
 
 import com.universitymicroservice.dto.request.UniversityRequestDTO;
+import com.universitymicroservice.dto.response.PaginatedResponse;
 import com.universitymicroservice.dto.response.UniversityResponseDTO;
 import com.universitymicroservice.service.impl.IUniversityService;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,14 @@ public class UniversityController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<PaginatedResponse<UniversityResponseDTO>> getAllPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        PaginatedResponse<UniversityResponseDTO> response = service.getAllPaginated(page, size);
+        return ResponseEntity.ok(response);
     }
 }
