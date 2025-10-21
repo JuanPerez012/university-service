@@ -1,5 +1,6 @@
 package com.universitymicroservice.entity;
 
+import com.universitymicroservice.enums.RoundingModeType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -18,14 +19,11 @@ public class University {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 30)
     private String code;
 
-    @Column(nullable = false, length = 150, unique = true)
+    @Column(nullable = false, length = 150)
     private String name;
-
-    @Column(nullable = false, length = 15)
-    private String status;
 
     @Column(name = "logo_url", length = 255)
     private String logoUrl;
@@ -39,8 +37,9 @@ public class University {
     @Column(name = "passing_score", nullable = false, precision = 4, scale = 2)
     private BigDecimal passingScore;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "rounding_mode", nullable = false, length = 15)
-    private String roundingMode;
+    private RoundingModeType roundingMode;
 
     @Column(name = "cuts_count", nullable = false)
     private Integer cutsCount;
@@ -70,14 +69,6 @@ public class University {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getLogoUrl() {
@@ -112,11 +103,11 @@ public class University {
         this.passingScore = passingScore;
     }
 
-    public String getRoundingMode() {
+    public RoundingModeType getRoundingMode() {
         return roundingMode;
     }
 
-    public void setRoundingMode(String roundingMode) {
+    public void setRoundingMode(RoundingModeType roundingMode) {
         this.roundingMode = roundingMode;
     }
 

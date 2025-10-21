@@ -1,5 +1,6 @@
 package com.universitymicroservice.dto.request;
 
+import com.universitymicroservice.enums.RoundingModeType;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -15,9 +16,6 @@ public record UniversityRequestDTO(
 
         @NotBlank @Size(max = 150)
         String name,
-
-        @NotBlank @Size(max = 15) // ACTIVE / INACTIVE
-        String status,
 
         @Size(max = 255)
         String logoUrl,
@@ -37,8 +35,8 @@ public record UniversityRequestDTO(
         @DecimalMax("100.00")
         BigDecimal passingScore,
 
-        @NotBlank @Size(max = 15) // HALF_UP / HALF_EVEN / NONE
-        String roundingMode,
+        @NotBlank @Size(max = 15)
+        RoundingModeType roundingMode,
 
         @NotNull @Min(1)
         Integer cutsCount,
