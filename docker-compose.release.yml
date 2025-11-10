@@ -1,0 +1,4 @@
+services:
+  university-service:
+    image: university-service:release
+    ports: ["8083:8083"]
