@@ -1,3 +1,0 @@
-services:
-  university-service:
-    image: university-service:main
