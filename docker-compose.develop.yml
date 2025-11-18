@@ -1,7 +1,0 @@
-services:
-  university-service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: university-service:local
-    ports: ["8083:8083"]
